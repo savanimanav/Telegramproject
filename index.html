@@ -13,7 +13,7 @@
 <body style="text-align: center; padding: 0; border: 0; margin: 0;">
     <canvas id="unity-canvas" tabindex="-1"
         style="width: 100vw; height: 100vh; background: #1F1F20"></canvas>
-    <script src="Build/New folder.loader.js"></script>
+    <script src="Build/mmdfg.loader.js"></script>
     <script>
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             // Mobile device style: fill the whole browser client area with the game canvas:
@@ -31,9 +31,9 @@
         }
 
         createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "Build/New folder.data",
-            frameworkUrl: "Build/New folder.framework.js",
-        codeUrl: "Build/New folder.wasm",
+            dataUrl: "Build/mmdfg.data",
+            frameworkUrl: "Build/mmdfg.framework.js",
+        codeUrl: "Build/mmdfg.wasm",
         streamingAssetsUrl: "StreamingAssets",
             companyName: "DefaultCompany",
             productName: "Wow_Web_Telegram",
