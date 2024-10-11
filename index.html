@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | WOW</title>
+    <title>Unity WebGL Player | Wow_Web_Telegram</title>
 
   
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -12,8 +12,8 @@
 
 <body style="text-align: center; padding: 0; border: 0; margin: 0;">
     <canvas id="unity-canvas" tabindex="-1"
-        style="width: 100vw; height: 100vh; background: #231F20"></canvas>
-    <script src="Build/oldcode.loader.js"></script>
+        style="width: 100vw; height: 100vh; background: #1F1F20"></canvas>
+    <script src="Build/wow merge.loader.js"></script>
     <script>
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
             // Mobile device style: fill the whole browser client area with the game canvas:
@@ -31,13 +31,13 @@
         }
 
         createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "Build/oldcode.data",
-            frameworkUrl: "Build/oldcode.framework.js",
-        codeUrl: "Build/oldcode.wasm",
+            dataUrl: "Build/wow merge.data",
+            frameworkUrl: "Build/wow merge.framework.js",
+        codeUrl: "Build/wow merge.wasm",
         streamingAssetsUrl: "StreamingAssets",
             companyName: "DefaultCompany",
-            productName: "WOW",
-            productVersion: "1.0.4",
+            productName: "Wow_Web_Telegram",
+            productVersion: "1.0",
         // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       }).then((unityInstance) => {
