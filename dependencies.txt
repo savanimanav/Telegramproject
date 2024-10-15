@@ -1,5 +1,6 @@
 com.github-glitchenzo.nugetforunity@4.1.1
 com.mixpanel.unity@3.5.3
+com.nobi.roundedcorners@3.4.1
 com.unity.2d.pixel-perfect@5.0.3
 com.unity.2d.sprite@1.0.0
 com.unity.2d.tilemap@1.0.0
