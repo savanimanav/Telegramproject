@@ -15,7 +15,6 @@ body {
 
 #unity-container {
     position: absolute;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px));
 }
 
 #unity-container.unity-desktop {
@@ -33,8 +32,10 @@ body {
 /* #unity-canvas { background: #0000f3 } */
 .unity-mobile #unity-canvas {
     width: 100%;
-    height: 100%
+    height: calc(100vh - env(safe-area-inset-bottom)); /* Adjust height based on the bottom safe area */
+    max-height: 100%; /* Prevent exceeding the maximum height */
 }
+
 
 #unity-loading-bar {
     position: absolute;
