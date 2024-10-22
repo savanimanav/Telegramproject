@@ -32,8 +32,14 @@ body {
 /* #unity-canvas { background: #0000f3 } */
 .unity-mobile #unity-canvas {
     width: 100%;
-    height: calc(100vh - env(safe-area-inset-bottom)); /* Adjust height based on the bottom safe area */
-    max-height: 100%; /* Prevent exceeding the maximum height */
+    height: 100%; /* Default height */
+}
+
+/* Apply styles specifically for iOS devices */
+@supports (-webkit-overflow-scrolling: touch) {
+    .unity-mobile #unity-canvas {
+        height: calc(97vh - env(safe-area-inset-bottom)); /* Set height to 97% of viewport height minus bottom safe area */
+    }
 }
 
 
