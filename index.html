@@ -28,6 +28,35 @@
     <title>Unity WebGL Player | Wow_Web_Telegram</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <script>
+      // Function to force portrait mode
+      function forcePortrait() {
+          // Check if the window is in landscape mode
+          if (window.innerHeight < window.innerWidth) {
+              // Set the body's transform to rotate it back to portrait
+              document.body.style.transform = "rotate(90deg)";
+              document.body.style.transformOrigin = "left top";
+              document.body.style.width = "100vh"; // Set height as width
+              document.body.style.height = "100vw"; // Set width as height
+              document.body.style.overflow = "hidden"; // Prevent scrollbars
+              document.body.style.position = "fixed"; // Fix position
+              document.body.style.left = "0";
+              document.body.style.top = "0";
+          } else {
+              // Ensure normal display in portrait mode
+              document.body.style.transform = "none";
+              document.body.style.width = "100%";
+              document.body.style.height = "100%";
+              document.body.style.overflow = "auto";
+              document.body.style.position = "relative"; // Reset position
+          }
+      }
+
+      // Listen for resize and orientation change events
+      window.addEventListener('resize', forcePortrait);
+      window.addEventListener('orientationchange', forcePortrait);
+      window.onload = forcePortrait; // Call on load
+  </script>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -143,28 +172,6 @@
       document.body.appendChild(script);
 
     </script>
-    <script>
-      function forcePortrait() {
-          if (window.innerHeight > window.innerWidth) {
-              // Already in portrait mode
-              return;
-          }
-          // If in landscape mode, force orientation
-          document.body.style.transform = "rotate(90deg)";
-          document.body.style.transformOrigin = "left top";
-          document.body.style.width = "100vh"; // Set height as width
-          document.body.style.height = "100vw"; // Set width as height
-          document.body.style.overflow = "hidden"; // Prevent scrollbars
-          document.body.style.position = "fixed"; // Fix position
-          document.body.style.left = "0";
-          document.body.style.top = "0";
-      }
-  
-      window.addEventListener('resize', forcePortrait);
-      window.addEventListener('orientationchange', forcePortrait);
-      window.onload = forcePortrait; // Call on load
-  </script>
-  
      <script>
       let tonConnectUI;
       const tonweb = new TonWeb();
