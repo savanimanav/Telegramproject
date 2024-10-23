@@ -10,6 +10,31 @@
   <title>Wow_Web_Telegram</title>
   <link rel="shortcut icon" href="TemplateData/favicon.ico">
   <link rel="stylesheet" href="TemplateData/style.css">
+
+  <script>
+    // Function to lock the screen orientation to portrait mode
+    function lockOrientation() {
+      if (screen.orientation) {
+        screen.orientation.lock("portrait").catch(function(error) {
+          console.error("Orientation lock failed: ", error);
+        });
+      } else {
+        // Fallback for older browsers that don't support screen.orientation.lock
+        window.addEventListener("resize", function() {
+          if (window.innerHeight < window.innerWidth) {
+            document.body.style.transform = "rotate(90deg)";
+            document.body.style.width = window.innerHeight + "px";
+            document.body.style.height = window.innerWidth + "px";
+          } else {
+            document.body.style.transform = "none";
+          }
+        });
+      }
+    }
+
+    // Call lockOrientation on page load
+    window.addEventListener('load', lockOrientation);
+  </script>
 </head>
 
 <body>
@@ -22,79 +47,45 @@
         <div id="unity-progress-bar-full"></div>
       </div>
     </div>
-    <div id="unity-warning"> </div>
+    <div id="unity-warning"></div>
   </div>
-  </div>
+
   <script>
-
-
-
     var buildUrl = "Build";
     const loaderUrl = buildUrl + "/wow test.loader.js";
     var config = {
       dataUrl: buildUrl + "/8672d3339ded2c1e0a8ddc54068e70b4.data",
       frameworkUrl: buildUrl + "/f795df767ff9a39c10cfdc270565cd9c.js",
-        codeUrl: "Build/ad4eb90b05ab13b4616fbee316e8e063.wasm",
-        streamingAssetsUrl: "StreamingAssets",
+      codeUrl: "Build/ad4eb90b05ab13b4616fbee316e8e063.wasm",
+      streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
       productVersion: "1.0",
       showBanner: unityShowBanner,
-      fullscreen: true, // Enable fullscreen by default
-      // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-      // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      fullscreen: true,
     };
 
     var container = document.querySelector("#unity-container");
     var canvas = document.querySelector("#unity-canvas");
     var loadingBar = document.querySelector("#unity-loading-bar");
     var progressBarFull = document.querySelector("#unity-progress-bar-full");
-    var fullscreenButton = document.querySelector("#unity-fullscreen-button");
-    var warningBanner = document.querySelector("#unity-warning");
 
-
-    // Shows a temporary message banner/ribbon for a few seconds, or
-    // a permanent error message on top of the canvas if type=='error'.
-    // If type=='warning', a yellow highlight color is used.
-    // Modify or remove this function to customize the visually presented
-    // way that non-critical warnings and error messages are presented to the
-    // user.
     function unityShowBanner(msg, type) {
-      console.error(`${type.toUpperCase()}: ${msg}`); // Log the message to the console
+      console.error(`${type.toUpperCase()}: ${msg}`);
     }
 
-
-    // By default, Unity keeps WebGL canvas render target size matched with
-    // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-    // Set this to false if you want to decouple this synchronization from
-    // happening inside the engine, and you would instead like to size up
-    // the canvas DOM size and WebGL render target sizes yourself.
-    // config.matchWebGLToCanvasSize = false;
-
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-      // Mobile device style: fill the whole browser client area with the game canvas:
-
       var meta = document.createElement('meta');
       meta.name = 'viewport';
       meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
       document.getElementsByTagName('head')[0].appendChild(meta);
       container.className = "unity-mobile";
       canvas.className = "unity-mobile";
-
       config.devicePixelRatio = window.devicePixelRatio;
-
-      // To lower canvas resolution on mobile devices to gain some
-      // performance, uncomment the following line:
-      // config.devicePixelRatio = 1;
-
-
     } else {
-      // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-
       canvas.style.width = "960px";
       canvas.style.height = "600px";
     }
-
 
     loadingBar.style.display = "block";
 
@@ -115,87 +106,73 @@
     };
 
     document.body.appendChild(script);
-
   </script>
+
   <script>
     let tonConnectUI;
     const tonweb = new TonWeb();
 
-    // Initialize TonConnect
     async function initTonConnect() {
       tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://greensoilorganic.com/wow/wow-telegram-wallet.json', // Replace with your app's manifest URL
+        manifestUrl: 'https://greensoilorganic.com/wow/wow-telegram-wallet.json',
       });
     }
 
-    // Function to connect wallet
     async function connectWallet() {
       try {
-        await tonConnectUI.connectWallet(); // Connect wallet
-        const walletAddress = tonConnectUI.wallet.account.address; // Get wallet address
-        return walletAddress; // Return wallet address to Unity
+        await tonConnectUI.connectWallet();
+        const walletAddress = tonConnectUI.wallet.account.address;
+        return walletAddress;
       } catch (error) {
         console.error('Error connecting wallet:', error);
-        return null; // Return null in case of error
+        return null;
       }
     }
 
-    // Function to disconnect wallet
     async function disconnectWallet() {
       try {
-        await tonConnectUI.disconnect(); // Disconnect wallet
-        return true; // Return true if successfully disconnected
+        await tonConnectUI.disconnect();
+        return true;
       } catch (error) {
         console.error('Error disconnecting wallet:', error);
-        return false; // Return false in case of error
+        return false;
       }
     }
 
-    // Function to send transaction
     async function sendTransaction(recipientAddress, amountInTon) {
-      const amountInNanotons = amountInTon * 1e9; // Convert to nanotons
-
+      const amountInNanotons = amountInTon * 1e9;
       const transaction = {
         validUntil: Math.floor(Date.now() / 1000) + 600,
-        messages: [
-          {
-            address: recipientAddress,
-            amount: amountInNanotons.toString(),
-          }
-        ],
+        messages: [{ address: recipientAddress, amount: amountInNanotons.toString() }],
       };
 
       try {
         const result = await tonConnectUI.sendTransaction(transaction);
-        const msgHash = await getTransactionHash(result.boc); // Get transaction hash
-        return { success: true, hash: msgHash }; // Return hash on success
+        const msgHash = await getTransactionHash(result.boc);
+        return { success: true, hash: msgHash };
       } catch (error) {
         console.error('Error sending transaction:', error);
-        return { success: false, error: error.message }; // Return error message on failure
+        return { success: false, error: error.message };
       }
     }
 
-    // Function to convert BOC to hash
     async function getTransactionHash(bocString) {
       try {
         const tonweb = new TonWeb();
         const bocCell = tonweb.boc.Cell.oneFromBoc(tonweb.utils.base64ToBytes(bocString));
-        const msgHash = await bocCell.hash(); // Await the hash calculation
-        return tonweb.utils.bytesToBase64(msgHash); // Convert the hash to base64 format
+        const msgHash = await bocCell.hash();
+        return tonweb.utils.bytesToBase64(msgHash);
       } catch (error) {
         console.error("Error calculating hash:", error);
-        return null; // Return null on error
+        return null;
       }
     }
 
-    // Expose functions to Unity
     window.connectWallet = connectWallet;
     window.disconnectWallet = disconnectWallet;
     window.sendTransaction = sendTransaction;
 
-    // Initialize TonConnect on page load
     window.addEventListener('load', initTonConnect);
   </script>
 </body>
-
 </html>
