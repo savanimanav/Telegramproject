@@ -2,6 +2,21 @@
 <html lang="en-us">
 
 <head>
+  <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Orientation Lock Example</title> 
+    <style> 
+        .orientation-message { 
+            display: none; 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            padding: 20px; 
+            border-radius: 10px; 
+            text-align: center; 
+        } 
+    </style> 
   <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tonweb@0.0.56/dist/tonweb.min.js"></script>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -49,7 +64,27 @@
     </div>
     <div id="unity-warning"></div>
   </div>
-
+  <div class="orientation-message" id="orientation-message"> 
+    Please rotate your device to landscape mode for a better experience. 
+</div> 
+ 
+<script> 
+    function checkOrientation() { 
+        const message = document.getElementById('orientation-message'); 
+        if (window.innerHeight > window.innerWidth) { 
+            message.style.display = 'block'; // Show message in portrait 
+        } else { 
+            message.style.display = 'none'; // Hide message in landscape 
+        } 
+    } 
+ 
+    window.addEventListener('resize', checkOrientation); 
+    window.addEventListener('orientationchange', checkOrientation); 
+ 
+    // Initial check 
+    checkOrientation(); 
+</script> 
+ 
   <script>
     var buildUrl = "Build";
     const loaderUrl = buildUrl + "/wow test.loader.js";
