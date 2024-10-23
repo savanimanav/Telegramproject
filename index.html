@@ -143,6 +143,28 @@
       document.body.appendChild(script);
 
     </script>
+    <script>
+      function forcePortrait() {
+          if (window.innerHeight > window.innerWidth) {
+              // Already in portrait mode
+              return;
+          }
+          // If in landscape mode, force orientation
+          document.body.style.transform = "rotate(90deg)";
+          document.body.style.transformOrigin = "left top";
+          document.body.style.width = "100vh"; // Set height as width
+          document.body.style.height = "100vw"; // Set width as height
+          document.body.style.overflow = "hidden"; // Prevent scrollbars
+          document.body.style.position = "fixed"; // Fix position
+          document.body.style.left = "0";
+          document.body.style.top = "0";
+      }
+  
+      window.addEventListener('resize', forcePortrait);
+      window.addEventListener('orientationchange', forcePortrait);
+      window.onload = forcePortrait; // Call on load
+  </script>
+  
      <script>
       let tonConnectUI;
       const tonweb = new TonWeb();
