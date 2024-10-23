@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
+    <title>Unity WebGL</title>
+    <script type="text/javascript">
+        function CheckInternetAvailability() {
+            var isOnline = navigator.onLine;
+            unityInstance.SendMessage('InternetChecker', 'OnInternetStatusChecked', isOnline.toString());
+        }
+        window.onload = function() {
+            CheckInternetAvailability();
+            window.addEventListener('online', CheckInternetAvailability);
+            window.addEventListener('offline', CheckInternetAvailability);
+        };
+    </script>
     <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tonweb@0.0.56/dist/tonweb.min.js"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -26,13 +38,6 @@
         <div id="unity-build-title">Wow_Web_Telegram</div>
       </div>
     </div>
-    <script type="text/javascript">
-      function CheckInternetAvailability() {
-        var isOnline = navigator.onLine;
-        // Call Unity function with the result
-        unityInstance.SendMessage('InternetChecker', 'OnInternetStatusChecked', isOnline.toString());
-      }
-    </script>    
     <script>
 
       var container = document.querySelector("#unity-container");
@@ -69,9 +74,9 @@
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/New folder.loader.js";
       var config = {
-        dataUrl: buildUrl + "/e91386e8dae9efed88f45bfe5fcbd126.data",
-        frameworkUrl: buildUrl + "/693400f72eeee0303038a0725494dd71.js",
-        codeUrl: buildUrl + "/3c1f894786ac510cdce5f7de48ed4462.wasm",
+        dataUrl: buildUrl + "/511ba5b27289776f385b0d0b546bd58a.data",
+        frameworkUrl: buildUrl + "/19d5f1d089769379d215301e6fa2a20a.js",
+        codeUrl: buildUrl + "/40911a4e811b1828e9221dd32e6df7e3.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "Wow_Web_Telegram",
@@ -131,85 +136,85 @@
       document.body.appendChild(script);
 
     </script>
-   <script>
-    let tonConnectUI;
-    const tonweb = new TonWeb();
-
-    // Initialize TonConnect
-    async function initTonConnect() {
-      tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://greensoilorganic.com/wow/wow-telegram-wallet.json', // Replace with your app's manifest URL
-      });
-    }
-
-    // Function to connect wallet
-    async function connectWallet() {
-      try {
-        await tonConnectUI.connectWallet(); // Connect wallet
-        const walletAddress = tonConnectUI.wallet.account.address; // Get wallet address
-        return walletAddress; // Return wallet address to Unity
-      } catch (error) {
-        console.error('Error connecting wallet:', error);
-        return null; // Return null in case of error
+     <script>
+      let tonConnectUI;
+      const tonweb = new TonWeb();
+  
+      // Initialize TonConnect
+      async function initTonConnect() {
+        tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+          manifestUrl: 'https://greensoilorganic.com/wow/wow-telegram-wallet.json', // Replace with your app's manifest URL
+        });
       }
-    }
-
-    // Function to disconnect wallet
-    async function disconnectWallet() {
-      try {
-        await tonConnectUI.disconnect(); // Disconnect wallet
-        return true; // Return true if successfully disconnected
-      } catch (error) {
-        console.error('Error disconnecting wallet:', error);
-        return false; // Return false in case of error
+  
+      // Function to connect wallet
+      async function connectWallet() {
+        try {
+          await tonConnectUI.connectWallet(); // Connect wallet
+          const walletAddress = tonConnectUI.wallet.account.address; // Get wallet address
+          return walletAddress; // Return wallet address to Unity
+        } catch (error) {
+          console.error('Error connecting wallet:', error);
+          return null; // Return null in case of error
+        }
       }
-    }
-
-    // Function to send transaction
-    async function sendTransaction(recipientAddress, amountInTon) {
-      const amountInNanotons = amountInTon * 1e9; // Convert to nanotons
-
-      const transaction = {
-        validUntil: Math.floor(Date.now() / 1000) + 600,
-        messages: [
-          {
-            address: recipientAddress,
-            amount: amountInNanotons.toString(),
-          }
-        ],
-      };
-
-      try {
-        const result = await tonConnectUI.sendTransaction(transaction);
-        const msgHash = await getTransactionHash(result.boc); // Get transaction hash
-        return { success: true, hash: msgHash }; // Return hash on success
-      } catch (error) {
-        console.error('Error sending transaction:', error);
-        return { success: false, error: error.message }; // Return error message on failure
+  
+      // Function to disconnect wallet
+      async function disconnectWallet() {
+        try {
+          await tonConnectUI.disconnect(); // Disconnect wallet
+          return true; // Return true if successfully disconnected
+        } catch (error) {
+          console.error('Error disconnecting wallet:', error);
+          return false; // Return false in case of error
+        }
       }
-    }
-
-    // Function to convert BOC to hash
-    async function getTransactionHash(bocString) {
-      try {
-        const tonweb = new TonWeb();
-        const bocCell = tonweb.boc.Cell.oneFromBoc(tonweb.utils.base64ToBytes(bocString));
-        const msgHash = await bocCell.hash(); // Await the hash calculation
-        return tonweb.utils.bytesToBase64(msgHash); // Convert the hash to base64 format
-      } catch (error) {
-        console.error("Error calculating hash:", error);
-        return null; // Return null on error
+  
+      // Function to send transaction
+      async function sendTransaction(recipientAddress, amountInTon) {
+        const amountInNanotons = amountInTon * 1e9; // Convert to nanotons
+  
+        const transaction = {
+          validUntil: Math.floor(Date.now() / 1000) + 600,
+          messages: [
+            {
+              address: recipientAddress,
+              amount: amountInNanotons.toString(),
+            }
+          ],
+        };
+  
+        try {
+          const result = await tonConnectUI.sendTransaction(transaction);
+          const msgHash = await getTransactionHash(result.boc); // Get transaction hash
+          return { success: true, hash: msgHash }; // Return hash on success
+        } catch (error) {
+          console.error('Error sending transaction:', error);
+          return { success: false, error: error.message }; // Return error message on failure
+        }
       }
-    }
-
-    // Expose functions to Unity
-    window.connectWallet = connectWallet;
-    window.disconnectWallet = disconnectWallet;
-    window.sendTransaction = sendTransaction;
-
-    // Initialize TonConnect on page load
-    window.addEventListener('load', initTonConnect);
-  </script>
-</body>
-
-</html>
+  
+      // Function to convert BOC to hash
+      async function getTransactionHash(bocString) {
+        try {
+          const tonweb = new TonWeb();
+          const bocCell = tonweb.boc.Cell.oneFromBoc(tonweb.utils.base64ToBytes(bocString));
+          const msgHash = await bocCell.hash(); // Await the hash calculation
+          return tonweb.utils.bytesToBase64(msgHash); // Convert the hash to base64 format
+        } catch (error) {
+          console.error("Error calculating hash:", error);
+          return null; // Return null on error
+        }
+      }
+  
+      // Expose functions to Unity
+      window.connectWallet = connectWallet;
+      window.disconnectWallet = disconnectWallet;
+      window.sendTransaction = sendTransaction;
+  
+      // Initialize TonConnect on page load
+      window.addEventListener('load', initTonConnect);
+    </script>
+  </body>
+  
+  </html>
