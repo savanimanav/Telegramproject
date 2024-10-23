@@ -30,12 +30,12 @@
 
 
     var buildUrl = "Build";
-    const loaderUrl = buildUrl + "/New WOW Telegram Build.loader.js";
+    const loaderUrl = buildUrl + "/wow test.loader.js";
     var config = {
-      dataUrl: buildUrl + "/a98bbff3c086f5fc5eb058c8e2c0dce1.data",
-      frameworkUrl: buildUrl + "/f6450f979eb390f5b3ec7501ea6fcd98.js",
-      codeUrl: "Build/58b80a69ea9585a2bac6e40c76865238.wasm",
-      streamingAssetsUrl: "StreamingAssets",
+      dataUrl: buildUrl + "/63933a3b38f6989778baf8db669492b9.data",
+      frameworkUrl: buildUrl + "/f795df767ff9a39c10cfdc270565cd9c.js",
+        codeUrl: "Build/56e47ac7bbafbb52f38ff6afaa7f68ee.wasm",
+        streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
       productVersion: "1.0",
@@ -109,36 +109,12 @@
         window.unityInstance.SendMessage("TelegramController", "SetWebAppUser", JSON.stringify(window.Telegram.WebApp.initDataUnsafe.user));
         loadingBar.style.display = "none";
         unityInstance.SetFullscreen(1);
-
-        // Call to check internet connection status after Unity instance creation
-        checkInternetConnection();
       }).catch((message) => {
         console.error(message);
       });
     };
 
     document.body.appendChild(script);
-
-    // Function to check the internet connection and notify Unity
-    function checkInternetConnection() {
-      console.error("checkInternetConnection");
-      function updateInternetStatus() {
-        if (navigator.onLine) {
-          console.log("You are online.");
-          window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "online");
-        } else {
-          console.log("You are offline.");
-          window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "offline");
-        }
-      }
-
-      // Check the internet status on load
-      updateInternetStatus();
-
-      // Listen for online/offline changes
-      window.addEventListener('online', updateInternetStatus);
-      window.addEventListener('offline', updateInternetStatus);
-    }
 
   </script>
   <script>
