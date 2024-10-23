@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <title>Unity WebGL</title>
     <script type="text/javascript">
-        function CheckInternetAvailability() {
-            var isOnline = navigator.onLine;
-            unityInstance.SendMessage('InternetChecker', 'OnInternetStatusChecked', isOnline.toString());
-        }
-        window.onload = function() {
-            CheckInternetAvailability();
-            window.addEventListener('online', CheckInternetAvailability);
-            window.addEventListener('offline', CheckInternetAvailability);
-        };
-    </script>
+      let lastOnlineStatus = null;
+  
+      function CheckInternetAvailability() {
+          var isOnline = navigator.onLine;
+          if (isOnline !== lastOnlineStatus) { // Only call if the status has changed
+              unityInstance.SendMessage('InternetChecker', 'OnInternetStatusChecked', isOnline.toString());
+              lastOnlineStatus = isOnline; // Update the last known status
+          }
+      }
+  
+      window.onload = function() {
+          CheckInternetAvailability(); // Initial check
+          window.addEventListener('online', CheckInternetAvailability);
+          window.addEventListener('offline', CheckInternetAvailability);
+          setInterval(CheckInternetAvailability, 5000); // Check every 5 seconds
+      };
+  </script>
+  
     <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tonweb@0.0.56/dist/tonweb.min.js"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
