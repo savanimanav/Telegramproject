@@ -30,12 +30,12 @@
 
 
     var buildUrl = "Build";
-    const loaderUrl = buildUrl + "/New WOW Telegram Build.loader.js";
+    const loaderUrl = buildUrl + "/wow webgl test.loader.js";
     var config = {
-      dataUrl: buildUrl + "/a98bbff3c086f5fc5eb058c8e2c0dce1.data",
-      frameworkUrl: buildUrl + "/f6450f979eb390f5b3ec7501ea6fcd98.js",
-      codeUrl: "Build/58b80a69ea9585a2bac6e40c76865238.wasm",
-      streamingAssetsUrl: "StreamingAssets",
+      dataUrl: buildUrl + "/c3ea1602084f500fb7464d0b542ddb56.data",
+      frameworkUrl: buildUrl + "/1ced703e8ea389e6bc89ea24d3345d0a.js",
+        codeUrl: "Build/881c32b386a60735c21965281af8e52a.wasm",
+        streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
       productVersion: "1.0",
@@ -118,28 +118,32 @@
     };
 
     document.body.appendChild(script);
-
-    // Function to check the internet connection and notify Unity
+    
     function checkInternetConnection() {
-      console.error("checkInternetConnection");
-      function updateInternetStatus() {
-        if (navigator.onLine) {
-          console.log("You are online.");
-          window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "online");
-        } else {
-          console.log("You are offline.");
-          window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "offline");
-        }
+    console.error("checkInternetConnection");
+    function updateInternetStatus() {
+      if (navigator.onLine) {
+        console.log("You are online.");
+        window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "online");
+      } else {
+        console.log("You are offline.");
+        window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "offline");
       }
-
-      // Check the internet status on load
-      updateInternetStatus();
-
-      // Listen for online/offline changes
-      window.addEventListener('online', updateInternetStatus);
-      window.addEventListener('offline', updateInternetStatus);
     }
 
+    // Check the internet status on load
+    updateInternetStatus();
+
+    // Listen for online/offline changes
+    window.addEventListener('online', updateInternetStatus);
+    window.addEventListener('offline', updateInternetStatus);
+  }
+
+  // Function to reinitialize the internet connection check from Unity
+  function initializeInternetCheck() {
+    console.log("Reinitializing internet check...");
+    checkInternetConnection(); // Reattach the event listeners
+  }
   </script>
   <script>
     let tonConnectUI;
