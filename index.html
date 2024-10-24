@@ -139,11 +139,14 @@
     window.addEventListener('offline', updateInternetStatus);
   }
 
-  // Function to reinitialize the internet connection check from Unity
   function initializeInternetCheck() {
-    console.log("Reinitializing internet check...");
+  console.log("Reinitializing internet check...");
+  
+  // Wait for 2 seconds (2000 milliseconds) before calling checkInternetConnection
+  setTimeout(() => {
     checkInternetConnection(); // Reattach the event listeners
-  }
+  }, 2000);
+}
   </script>
   <script>
     let tonConnectUI;
