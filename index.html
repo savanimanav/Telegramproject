@@ -124,7 +124,7 @@
       function updateInternetStatus() {
         if (navigator.onLine) {
           console.log("You are online.");
-          window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "online");
+          // window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "online");
         } else {
           console.log("You are offline.");
           window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "offline");
