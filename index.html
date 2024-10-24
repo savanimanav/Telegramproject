@@ -32,9 +32,9 @@
     var buildUrl = "Build";
     const loaderUrl = buildUrl + "/New folder.loader.js";
     var config = {
-      dataUrl: buildUrl + "/7b1b0a2812f095a8f64775a9268b6895.data",
+      dataUrl: buildUrl + "/81ec1142ca3d06d8d1122c1d3f787bd6.data",
       frameworkUrl: buildUrl + "/a4fa3461ff5f57381d7db09dca6aaa2d.js",
-        codeUrl: "Build/39428cb5a0a5e7fee16c857502d039a7.wasm",
+        codeUrl: "Build/c172d92d08307c2e2224a21ad7f762c1.wasm",
         streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
@@ -124,7 +124,7 @@
       function updateInternetStatus() {
         if (navigator.onLine) {
           console.log("You are online.");
-          // window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "online");
+          window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "online");
         } else {
           console.log("You are offline.");
           window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "offline");
