@@ -10,6 +10,32 @@
   <title>Wow_Web_Telegram</title>
   <link rel="shortcut icon" href="TemplateData/favicon.ico">
   <link rel="stylesheet" href="TemplateData/style.css">
+  <script>
+    // Ensure the WebApp is ready when the page loads
+    window.Telegram.WebApp.ready();
+
+    function getBotUsername() {
+        // Fetch bot's username from your server endpoint
+        fetch('https://api.telegram.org/get-bot-username', {
+            method: 'GET',
+            credentials: 'include' // if your server requires authentication or cookies
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.botUsername) {
+                document.getElementById('botUsername').innerText = "Bot Username: " + data.botUsername;
+            } else {
+                console.error("Failed to retrieve bot username.");
+            }
+        })
+        .catch(error => console.error("Error fetching bot username: ", error));
+    }
+
+    // Call the function when the HTML content is loaded
+    window.onload = function() {
+        getBotUsername();
+    }
+</script>
 </head>
 
 <body>
