@@ -32,7 +32,7 @@
     var buildUrl = "Build";
     const loaderUrl = buildUrl + "/rotation test.loader.js";
     var config = {
-      dataUrl: buildUrl + "/d5824eca194eaba97a27707cfb49d1fc.data",
+      dataUrl: buildUrl + "/0788a831f23fb956e8648de9fb987d5d.data",
       frameworkUrl: buildUrl + "/42e6c4de6ba3cc764346c51fed75ea1f.js",
         codeUrl: "Build/7959d82db31fe2015249057cd635afa8.wasm",
         streamingAssetsUrl: "StreamingAssets",
@@ -138,31 +138,6 @@
       window.addEventListener('online', updateInternetStatus);
       window.addEventListener('offline', updateInternetStatus);
     }
-
-  </script>
-  <script>
-    function checkOrientation() {
-      if (typeof unityInstance !== 'undefined' && unityInstance !== null) {
-        if (window.matchMedia("(orientation: portrait)").matches) {
-          document.body.classList.remove("landscape");
-          document.body.classList.add("portrait");
-          console.log("In portrait mode");
-          unityInstance.SendMessage('OriantationManager', 'PotraitMode');
-        } else {
-          document.body.classList.remove("portrait");
-          document.body.classList.add("landscape");
-          console.log("In landscape mode");
-          unityInstance.SendMessage('OriantationManager', 'LandscapeMode');
-        }
-      } else {
-        console.warn("Unity instance is not defined yet. Orientation check skipped.");
-      }
-    }
-
-    checkOrientation();
-
-    window.addEventListener("resize", checkOrientation);
-    window.addEventListener("orientationchange", checkOrientation);
 
   </script>
   <script>
