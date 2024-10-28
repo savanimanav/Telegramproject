@@ -104,6 +104,7 @@
         progressBarFull.style.width = `${progress}%`;
       })
         .then((unityInstance) => {
+          progressBarFull.style.width = `100%`;
           console.log('Instance created', window.Telegram.WebApp);
           window.unityInstance = unityInstance;
           window.unityInstance.SendMessage("TelegramController", "SetWebAppUser", JSON.stringify(window.Telegram.WebApp.initDataUnsafe.user));
