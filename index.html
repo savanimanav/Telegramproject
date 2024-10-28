@@ -30,11 +30,11 @@
 
 
     var buildUrl = "Build";
-    const loaderUrl = buildUrl + "/Wow Telegram - Test - 2.loader.js";
+    const loaderUrl = buildUrl + "/wow webgl rotation test.loader.js";
     var config = {
-      dataUrl: buildUrl + "/bdffbc211332f96cc97a502a6f449f3d.data",
-      frameworkUrl: buildUrl + "/f5bb0cbc40337fe84b8f29c6b8256781.js",
-        codeUrl: "Build/18f24dba5a1bbe9ba5526ddc8bf8b56a.wasm",
+      dataUrl: buildUrl + "/6f03a3e68aa9e7f70d794ae694a7366f.data",
+      frameworkUrl: buildUrl + "/fc6716886d0ecc1b917cf2e2e42c8242.js",
+        codeUrl: "Build/518108ca99e70f5218670557b3afdb6e.wasm",
         streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
@@ -140,6 +140,26 @@
     }
 
   </script>
+  <script>
+    function checkOrientation() {
+        if (window.matchMedia("(orientation: portrait)").matches) {
+            document.body.classList.remove("landscape");
+            document.body.classList.add("portrait");
+                console.log("In portrait mode");    
+                window.unityInstance.SendMessage("OriantationManager", "PotraitMode",);
+        } else {
+            document.body.classList.remove("portrait");
+            document.body.classList.add("landscape");
+                console.log("In landscape mode");
+                window.unityInstance.SendMessage("OriantationManager", "LandscapeMode",);
+        }
+    }
+    checkOrientation();
+
+    window.addEventListener("resize", checkOrientation);
+    window.addEventListener("orientationchange", checkOrientation);
+
+</script>
   <script>
     let tonConnectUI;
     const tonweb = new TonWeb();
