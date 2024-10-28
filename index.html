@@ -34,8 +34,8 @@
     var config = {
       dataUrl: buildUrl + "/6f03a3e68aa9e7f70d794ae694a7366f.data",
       frameworkUrl: buildUrl + "/fc6716886d0ecc1b917cf2e2e42c8242.js",
-        codeUrl: "Build/518108ca99e70f5218670557b3afdb6e.wasm",
-        streamingAssetsUrl: "StreamingAssets",
+      codeUrl: "Build/518108ca99e70f5218670557b3afdb6e.wasm",
+      streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
       productVersion: "1.0",
@@ -118,7 +118,7 @@
     };
 
     document.body.appendChild(script);
-    
+
     // Function to check the internet connection and notify Unity
     function checkInternetConnection() {
       function updateInternetStatus() {
@@ -142,24 +142,29 @@
   </script>
   <script>
     function checkOrientation() {
+      if (typeof unityInstance !== 'undefined' && unityInstance !== null) {
         if (window.matchMedia("(orientation: portrait)").matches) {
-            document.body.classList.remove("landscape");
-            document.body.classList.add("portrait");
-                console.log("In portrait mode");    
-                unityInstance.SendMessage('OriantationManager', 'PotraitMode');
+          document.body.classList.remove("landscape");
+          document.body.classList.add("portrait");
+          console.log("In portrait mode");
+          unityInstance.SendMessage('OriantationManager', 'PotraitMode');
         } else {
-            document.body.classList.remove("portrait");
-            document.body.classList.add("landscape");
-                console.log("In landscape mode");
-                unityInstance.SendMessage('OriantationManager', 'LandscapeMode');
+          document.body.classList.remove("portrait");
+          document.body.classList.add("landscape");
+          console.log("In landscape mode");
+          unityInstance.SendMessage('OriantationManager', 'LandscapeMode');
         }
+      } else {
+        console.warn("Unity instance is not defined yet. Orientation check skipped.");
+      }
     }
+
     checkOrientation();
 
     window.addEventListener("resize", checkOrientation);
     window.addEventListener("orientationchange", checkOrientation);
 
-</script>
+  </script>
   <script>
     let tonConnectUI;
     const tonweb = new TonWeb();
