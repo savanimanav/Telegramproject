@@ -30,15 +30,15 @@
 
 
     var buildUrl = "Build";
-    const loaderUrl = buildUrl + "/new rotation test.loader.js";
+    const loaderUrl = buildUrl + "/Wow Telegram - Production - 1.1 - 1.loader.js";
     var config = {
-      dataUrl: buildUrl + "/2acf8d0ab1c95db3d22d3ddae9ebe11c.data",
-      frameworkUrl: buildUrl + "/42e6c4de6ba3cc764346c51fed75ea1f.js",
-        codeUrl: "Build/7959d82db31fe2015249057cd635afa8.wasm",
+      dataUrl: buildUrl + "/440cd5114619a3fcfd501c4659f01452.data",
+      frameworkUrl: buildUrl + "/6f6f7716511bfc299c743d4f6c23530c.js",
+        codeUrl: "Build/1707a0da6c731eaf56276541a9514111.wasm",
         streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
-      productVersion: "1.0",
+      productVersion: "1.1",
       showBanner: unityShowBanner,
       fullscreen: true, // Enable fullscreen by default
       // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
@@ -140,31 +140,6 @@
     }
 
   </script>
-    <script>
-      function checkOrientation() {
-        if (typeof unityInstance !== 'undefined' && unityInstance !== null) {
-          if (window.matchMedia("(orientation: portrait)").matches) {
-            document.body.classList.remove("landscape");
-            document.body.classList.add("portrait");
-            console.log("In portrait mode");
-            unityInstance.SendMessage('OriantationManager', 'PotraitMode');
-          } else {
-            document.body.classList.remove("portrait");
-            document.body.classList.add("landscape");
-            console.log("In landscape mode");
-            unityInstance.SendMessage('OriantationManager', 'LandscapeMode');
-          }
-        } else {
-          console.warn("Unity instance is not defined yet. Orientation check skipped.");
-        }
-      }
-  
-      checkOrientation();
-  
-      window.addEventListener("resize", checkOrientation);
-      window.addEventListener("orientationchange", checkOrientation);
-  
-    </script>
   <script>
     let tonConnectUI;
     const tonweb = new TonWeb();
@@ -243,6 +218,31 @@
 
     // Initialize TonConnect on page load
     window.addEventListener('load', initTonConnect);
+  </script>
+  <script>
+    function checkOrientation() {
+      if (typeof unityInstance !== 'undefined' && unityInstance !== null) {
+        if (window.matchMedia("(orientation: portrait)").matches) {
+          document.body.classList.remove("landscape");
+          document.body.classList.add("portrait");
+          console.log("In portrait mode");
+          unityInstance.SendMessage('OriantationManager', 'PotraitMode');
+        } else {
+          document.body.classList.remove("portrait");
+          document.body.classList.add("landscape");
+          console.log("In landscape mode");
+          unityInstance.SendMessage('OriantationManager', 'LandscapeMode');
+        }
+      } else {
+        console.warn("Unity instance is not defined yet. Orientation check skipped.");
+      }
+    }
+
+    checkOrientation();
+
+    window.addEventListener("resize", checkOrientation);
+    window.addEventListener("orientationchange", checkOrientation);
+
   </script>
 </body>
 
