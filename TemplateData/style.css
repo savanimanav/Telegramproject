@@ -87,7 +87,7 @@ body {
     background: url('progress-bar-full-dark.png') no-repeat left center;
     background-size: cover;
     border-radius: 15px;
-    transition: width 0.3s ease;
+    transition: width 0.2s ease;
     /* Smooth progress animation */
 }
 
