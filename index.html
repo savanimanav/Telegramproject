@@ -146,12 +146,12 @@
             document.body.classList.remove("landscape");
             document.body.classList.add("portrait");
                 console.log("In portrait mode");    
-                window.unityInstance.SendMessage("OriantationManager", "PotraitMode",);
+                unityInstance.SendMessage('OriantationManager', 'PotraitMode');
         } else {
             document.body.classList.remove("portrait");
             document.body.classList.add("landscape");
                 console.log("In landscape mode");
-                window.unityInstance.SendMessage("OriantationManager", "LandscapeMode",);
+                unityInstance.SendMessage('OriantationManager', 'LandscapeMode');
         }
     }
     checkOrientation();
