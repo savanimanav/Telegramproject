@@ -27,19 +27,27 @@
   </div>
   <script>
 
+    const app = window?.Telegram?.WebApp
+    if (app) {
+      app.enableClosingConfirmation()
+      app.ready()
+      app.expand()
+      if (app.disableVerticalSwipes) {
+        app.disableVerticalSwipes()
+      }
+    }
 
 
     var buildUrl = "Build";
-    const loaderUrl = buildUrl + "/Wow Telegram - Test - 1.1 - 1.loader.js";
+    const loaderUrl = buildUrl + "/Wow Telegram - Test - 1.2 - 1.loader.js";
     var config = {
-      dataUrl: buildUrl + "/6bdae5d07e84e1076bde07fbe56ea1ba.data",
-      frameworkUrl: buildUrl + "/6f6f7716511bfc299c743d4f6c23530c.js",
-        codeUrl: "Build/1707a0da6c731eaf56276541a9514111.wasm",
+      dataUrl: buildUrl + "/0d5c4e4e503e92ecd15404110de4895e.data",
+      frameworkUrl: buildUrl + "/43d7206a15d0942d8d91fca0da618085.js",
+        codeUrl: "Build/ebb6310c573d54acaf419371a242d4b2.wasm",
         streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
-      productVersion: "1.1",
-      showBanner: unityShowBanner,
+      productVersion: "1.2",
       fullscreen: true, // Enable fullscreen by default
       // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
       // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
@@ -51,17 +59,6 @@
     var progressBarFull = document.querySelector("#unity-progress-bar-full");
     var fullscreenButton = document.querySelector("#unity-fullscreen-button");
     var warningBanner = document.querySelector("#unity-warning");
-
-
-    // Shows a temporary message banner/ribbon for a few seconds, or
-    // a permanent error message on top of the canvas if type=='error'.
-    // If type=='warning', a yellow highlight color is used.
-    // Modify or remove this function to customize the visually presented
-    // way that non-critical warnings and error messages are presented to the
-    // user.
-    function unityShowBanner(msg, type) {
-      console.error(`${type.toUpperCase()}: ${msg}`); // Log the message to the console
-    }
 
 
     // By default, Unity keeps WebGL canvas render target size matched with
@@ -101,24 +98,26 @@
     var script = document.createElement("script");
     script.src = loaderUrl;
     script.onload = () => {
-      createUnityInstance(canvas, config, (progress) => {
-        progressBarFull.style.width = 100 * progress + "%";
-      }).then((unityInstance) => {
-        console.log('Instance created', window.Telegram.WebApp);
-        window.unityInstance = unityInstance;
-        window.unityInstance.SendMessage("TelegramController", "SetWebAppUser", JSON.stringify(window.Telegram.WebApp.initDataUnsafe.user));
-        loadingBar.style.display = "none";
-        unityInstance.SetFullscreen(1);
+      createUnityInstance(canvas, config, (_progress) => {
+        const progress = (_progress * 100).toFixed(2); // Calculate progress percentage
+        progressBarFull.style.width = `${progress}%`; // Update progress bar width dynamically
+      })
+        .then((unityInstance) => {
+          console.log('Instance created', window.Telegram.WebApp);
+          window.unityInstance = unityInstance;
+          window.unityInstance.SendMessage("TelegramController", "SetWebAppUser", JSON.stringify(window.Telegram.WebApp.initDataUnsafe.user));
+          loadingBar.style.display = "none";
+          unityInstance.SetFullscreen(1);
 
-        // Call to check internet connection status after Unity instance creation
-        checkInternetConnection();
-      }).catch((message) => {
-        console.error(message);
-      });
+          // Call to check internet connection status after Unity instance creation
+          checkInternetConnection();
+        }).catch((message) => {
+          console.error(message);
+        });
     };
 
     document.body.appendChild(script);
-    
+
     // Function to check the internet connection and notify Unity
     function checkInternetConnection() {
       function updateInternetStatus() {
@@ -234,7 +233,7 @@
           unityInstance.SendMessage('OriantationManager', 'LandscapeMode');
         }
       } else {
-        console.warn("Unity instance is not defined yet. Orientation check skipped.");
+        console.log("Unity instance is not defined yet. Orientation check skipped.");
       }
     }
 
