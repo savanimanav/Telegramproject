@@ -1,5 +1,5 @@
 com.github-glitchenzo.nugetforunity@4.1.1
-com.mixpanel.unity@3.5.0
+com.mixpanel.unity@3.5.3
 com.nobi.roundedcorners@3.4.1
 com.unity.2d.pixel-perfect@5.0.3
 com.unity.2d.sprite@1.0.0
@@ -11,14 +11,14 @@ com.unity.ide.visualstudio@2.0.22
 com.unity.ide.vscode@1.2.5
 com.unity.mobile.android-logcat@1.4.1
 com.unity.nuget.newtonsoft-json@3.2.1
-com.unity.render-pipelines.universal@14.0.8
+com.unity.render-pipelines.universal@17.0.3
 com.unity.test-framework@1.4.3
-com.unity.textmeshpro@3.0.9
 com.unity.timeline@1.8.6
-com.unity.ugui@1.0.0
+com.unity.ugui@2.0.0
 com.unity.vectorgraphics@2.0.0-preview.24
 com.unity.visualscripting@1.9.4
-io.backtrace.unity@3.8.1
+io.backtrace.unity@3.8.7
+com.unity.modules.accessibility@1.0.0
 com.unity.modules.ai@1.0.0
 com.unity.modules.androidjni@1.0.0
 com.unity.modules.animation@1.0.0
@@ -51,4 +51,4 @@ com.unity.modules.vr@1.0.0
 com.unity.modules.wind@1.0.0
 com.unity.modules.xr@1.0.0
 unity-dependencies-hunter@1.0.0
-Wow_Web_Telegram@1.4
+Wow_Web_Telegram@1.5
