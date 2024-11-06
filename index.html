@@ -39,11 +39,11 @@
 
 
     var buildUrl = "Build";
-    const loaderUrl = buildUrl + "/059a8ceaa8f4d23e4729947c97f6b867.loader.js";
+    const loaderUrl = buildUrl + "/93f33ac74553200deaefd1eea0c757de.loader.js";
     var config = {
-      dataUrl: buildUrl + "/4b3ef3c767b49e0132005c48934444f4.data.br",
-      frameworkUrl: buildUrl + "/ef392e228ce2a69d799adf969cb9fe6b.framework.js.br",
-        codeUrl: "Build/023a4e619f4b1969ad8449b77a94e083.wasm.br",
+      dataUrl: buildUrl + "/6088c61a053e2b3d661e283b9d3f7f75.data.br",
+      frameworkUrl: buildUrl + "/e0ccbfa9fe84cb2ae207831bea5e381a.framework.js.br",
+        codeUrl: "Build/6b52dedf8599f4f0129224ef95cbdc8b.wasm.br",
         streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
@@ -100,7 +100,7 @@
     script.onload = () => {
       createUnityInstance(canvas, config, (_progress) => {
         // Calculate progress percentage and cap at 99% until fully loaded
-        const progress = Math.min((_progress * 100).toFixed(0), 99);
+        const progress = Math.min(_progress * 100);
         progressBarFull.style.width = `${progress}%`;
       })
         .then((unityInstance) => {
