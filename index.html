@@ -8,11 +8,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Start loading assets right away, to have them (partly) loaded already when they are requested -->
-  <link rel="preload" href="Build//df19e4ddabddab406e5a9decce046343.data.unityweb" as="fetch"
-    type="application/octet-stream" crossorigin>
+  <link rel="preload" href="Build//5eb29ee287a4e871eac5c7a74569c368.data.unityweb" as="fetch" type="application/octet-stream" crossorigin>
   <link rel="preload" href="Build/090f99e34e2f98d7bdd7a8e3b9e2924d.framework.js.unityweb" as="script">
-  <link rel="preload" href="Build/3fc8e048e8735b8041d9372d6a8a5926.wasm.unityweb" as="fetch" type="application/wasm"
-    crossorigin>
+  <link rel="preload" href="Build/3fc8e048e8735b8041d9372d6a8a5926.wasm.unityweb" as="fetch" type="application/wasm" crossorigin>
   <title>Wow_Web_Telegram</title>
   <style>
     * {
@@ -51,14 +49,14 @@
       height: 100%;
       background-color: #222;
     }
-
-    /* Apply styles specifically for iOS devices */
-    @supports (-webkit-overflow-scrolling: touch) {
-      .unity-mobile #unity-canvas {
+    
+/* Apply styles specifically for iOS devices */
+@supports (-webkit-overflow-scrolling: touch) {
+    .unity-mobile #unity-canvas {
         height: calc(97vh - env(safe-area-inset-bottom));
         /* Set height to 97% of viewport height minus bottom safe area */
-      }
     }
+}
 
     @media (min-aspect-ratio: 3/1) {
       #unity-canvas {
@@ -75,7 +73,7 @@
         aspect-ratio: 1/2;
       }
     }
-
+    
     #unity-loading-container {
       position: absolute;
       left: 0px;
@@ -151,7 +149,6 @@
       <div id="unity-loading-bar-inner"></div>
     </div> -->
   </div>
-  <script src="Build/1d66a5c09c0bc6f30267f24b9cc83754.loader.js"></script>
   <script>
 
 
@@ -167,9 +164,9 @@
 
 
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/1d66a5c09c0bc6f30267f24b9cc83754.loader.js";
+    var loaderUrl = buildUrl + "/88cee2d149cd108b54596400a2a290c0.loader.js?v=185945326845";
     var config = {
-      dataUrl: buildUrl + "/df19e4ddabddab406e5a9decce046343.data.unityweb",
+      dataUrl: buildUrl + "/5eb29ee287a4e871eac5c7a74569c368.data.unityweb",
       frameworkUrl: buildUrl + "/090f99e34e2f98d7bdd7a8e3b9e2924d.framework.js.unityweb",
       codeUrl: buildUrl + "/3fc8e048e8735b8041d9372d6a8a5926.wasm.unityweb",
       streamingAssetsUrl: "StreamingAssets",
@@ -178,11 +175,10 @@
       productVersion: "1.6",
     };
 
-
-    var container = document.querySelector("#unity-container");
-    var canvas = document.querySelector("#unity-canvas");
-    var loadingContainer = document.querySelector("#unity-loading-container");
-    var loadingBar = document.querySelector("#unity-loading-bar-inner");
+var container = document.querySelector("#unity-container");
+var canvas = document.querySelector("#unity-canvas");
+var loadingContainer = document.querySelector("#unity-loading-container");
+var loadingBar = document.querySelector("#unity-loading-bar-inner");
 
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
@@ -192,7 +188,6 @@
       container.className = "unity-mobile";
       canvas.className = "unity-mobile";
     }
-
 
     var script = document.createElement("script");
     script.src = loaderUrl;
@@ -234,7 +229,9 @@
       window.addEventListener('offline', updateInternetStatus);
     }
   </script>
-
+  
+  <!-- Add an html debug console and handle unity rich text styling for both html and browser console-->
+  <script src="./debug-console.js"></script>
   <script>
     let tonConnectUI;
     const tonweb = new TonWeb();
@@ -339,8 +336,6 @@
     window.addEventListener("orientationchange", checkOrientation);
 
   </script>
-  <!-- Parse Unity rich text to render stylized browser console logs -->
-  <script src="./pretty-console.js"></script>
 </body>
 
 </html>
