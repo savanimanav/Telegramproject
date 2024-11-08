@@ -8,9 +8,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Start loading assets right away, to have them (partly) loaded already when they are requested -->
-  <link rel="preload" href="Build//a7e39b10e4cccf7f19866efce795c24d.data.unityweb" as="fetch" type="application/octet-stream" crossorigin>
+  <link rel="preload" href="Build//ba5ba2389f15b47eaaf40d5bcbf03f75.data.unityweb" as="fetch" type="application/octet-stream" crossorigin>
   <link rel="preload" href="Build/090f99e34e2f98d7bdd7a8e3b9e2924d.framework.js.unityweb" as="script">
-  <link rel="preload" href="Build/3fc8e048e8735b8041d9372d6a8a5926.wasm.unityweb" as="fetch" type="application/wasm" crossorigin>
+  <link rel="preload" href="Build/cb1cee30c6f5809295b19e7885b0fd3c.wasm.unityweb" as="fetch" type="application/wasm" crossorigin>
   <title>Wow_Web_Telegram</title>
   <style>
     * {
@@ -141,7 +141,7 @@
       <div id="unity-loading-bar-inner"></div>
     </div> -->
   </div>
-  <script src="Build/1d66a5c09c0bc6f30267f24b9cc83754.loader.js"></script>
+  <script src="Build/dccf47a1dd7b6d0b2874d9d9c8b60057.loader.js"></script>
   <script>
 
 
@@ -157,11 +157,11 @@
 
 
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/1d66a5c09c0bc6f30267f24b9cc83754.loader.js";
+    var loaderUrl = buildUrl + "/dccf47a1dd7b6d0b2874d9d9c8b60057.loader.js";
     var config = {
-      dataUrl: buildUrl + "/a7e39b10e4cccf7f19866efce795c24d.data.unityweb",
+      dataUrl: buildUrl + "/ba5ba2389f15b47eaaf40d5bcbf03f75.data.unityweb",
       frameworkUrl: buildUrl + "/090f99e34e2f98d7bdd7a8e3b9e2924d.framework.js.unityweb",
-      codeUrl: buildUrl + "/3fc8e048e8735b8041d9372d6a8a5926.wasm.unityweb",
+      codeUrl: buildUrl + "/cb1cee30c6f5809295b19e7885b0fd3c.wasm.unityweb",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
@@ -186,7 +186,6 @@
         loadingBar.style.width = 100 * progress + "%";
       }).then(function (unityInstance) {
         window.unityInstance = unityInstance;
-        console.error(window.Telegram.WebApp.initDataUnsafe.user);
         window.unityInstance.SendMessage("TelegramController", "SetWebAppUser", JSON.stringify(window.Telegram.WebApp.initDataUnsafe.user));
         loadingContainer.classList.add("finished");
 
