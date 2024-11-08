@@ -7,9 +7,8 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="debug-console.css">
   <!-- Start loading assets right away, to have them (partly) loaded already when they are requested -->
-  <link rel="preload" href="Build//5eb29ee287a4e871eac5c7a74569c368.data.unityweb" as="fetch" type="application/octet-stream" crossorigin>
+  <link rel="preload" href="Build//0f06ce3496b7f8581ab0944992db6de6.data.unityweb" as="fetch" type="application/octet-stream" crossorigin>
   <link rel="preload" href="Build/090f99e34e2f98d7bdd7a8e3b9e2924d.framework.js.unityweb" as="script">
   <link rel="preload" href="Build/3fc8e048e8735b8041d9372d6a8a5926.wasm.unityweb" as="fetch" type="application/wasm" crossorigin>
   <title>Wow_Web_Telegram</title>
@@ -48,16 +47,8 @@
     #unity-canvas {
       width: 100%;
       height: 100%;
-      background-color: #222;
+      background-color: #fff;
     }
-    
-/* Apply styles specifically for iOS devices */
-@supports (-webkit-overflow-scrolling: touch) {
-    .unity-mobile #unity-canvas {
-        height: calc(97vh - env(safe-area-inset-bottom));
-        /* Set height to 97% of viewport height minus bottom safe area */
-    }
-}
 
     @media (min-aspect-ratio: 3/1) {
       #unity-canvas {
@@ -74,19 +65,20 @@
         aspect-ratio: 1/2;
       }
     }
-    
+
     #unity-loading-container {
       position: absolute;
       left: 0px;
       top: 0px;
       width: 100%;
       height: 100%;
-      background: url('wow-bg.webp') no-repeat center center;
-      background-size: cover;
+      background-color: #fff;
+      display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       gap: 40px;
+
       opacity: 1;
       visibility: visible;
       transition: 800ms linear;
@@ -97,40 +89,28 @@
       visibility: collapse;
     }
 
-    /* Outer bar with gradient and rounded corners */
-    #outer-bar {
+    #unity-loading-container .logo {
+      width: 15%;
+      height: 15%;
+    }
+
+    #unity-loading-bar {
       position: relative;
-      width: 70%;
-      height: 14px;
-      border-radius: 50px;
-      background: linear-gradient(135deg, #43466e, #585e81);
-      border: 4px solid #6e78b3;
-      padding: 5px;
-      left: 50%;
-      top: 87%;
-      transform: translate(-50%, -50%);
-      /* Creates a space for the dark middle layer */
+      width: 40%;
+      height: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
     }
 
-    /* Middle bar (dark gray background) with rounded corners */
-    #middle-bar {
-      width: 100%;
-      height: 100%;
-      border-radius: 50px;
-      background-color: #282844;
-      /* Dark gray color */
-      padding: 0px;
-      /* Creates a space for the inner green bar */
-    }
-
-    /* Inner bar (green) with fill effect */
     #unity-loading-bar-inner {
+      position: absolute;
+      left: 0%;
+      top: 0%;
       width: 1%;
-      /* Change this value to adjust the fill percentage */
       height: 100%;
-      border-radius: 50px;
-      background: linear-gradient(180deg, #52eb6c, #3aa344);
-      /* Green gradient */
+      background-color: #ccc;
+      border-radius: 10px;
       transition: 400ms linear;
     }
   </style>
@@ -141,15 +121,12 @@
     <canvas id="unity-canvas"></canvas>
   </div>
   <div id="unity-loading-container">
-    <div id="outer-bar">
-      <div id="middle-bar">
-        <div id="unity-loading-bar-inner"></div>
-      </div>
-    </div>
-    <!-- <div id="unity-loading-bar">
+    <img src="logo.svg" class="logo" alt="Logo DefaultCompany">
+    <div id="unity-loading-bar">
       <div id="unity-loading-bar-inner"></div>
-    </div> -->
+    </div>
   </div>
+  <script src="Build/1d66a5c09c0bc6f30267f24b9cc83754.loader.js"></script>
   <script>
 
 
@@ -165,9 +142,9 @@
 
 
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/88cee2d149cd108b54596400a2a290c0.loader.js?v=185945326845";
+    var loaderUrl = buildUrl + "/1d66a5c09c0bc6f30267f24b9cc83754.loader.js";
     var config = {
-      dataUrl: buildUrl + "/5eb29ee287a4e871eac5c7a74569c368.data.unityweb",
+      dataUrl: buildUrl + "/0f06ce3496b7f8581ab0944992db6de6.data.unityweb",
       frameworkUrl: buildUrl + "/090f99e34e2f98d7bdd7a8e3b9e2924d.framework.js.unityweb",
       codeUrl: buildUrl + "/3fc8e048e8735b8041d9372d6a8a5926.wasm.unityweb",
       streamingAssetsUrl: "StreamingAssets",
@@ -176,36 +153,32 @@
       productVersion: "1.6",
     };
 
-var container = document.querySelector("#unity-container");
-var canvas = document.querySelector("#unity-canvas");
-var loadingContainer = document.querySelector("#unity-loading-container");
-var loadingBar = document.querySelector("#unity-loading-bar-inner");
-
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
+    if(isMobile) {
       // Define a maximum pixel ratio for mobile to avoid rendering at too high resolutions
       const maxPixelRatioMobile = 2.0;
       config.devicePixelRatio = Math.min(window.devicePixelRatio, maxPixelRatioMobile);
-      container.className = "unity-mobile";
-      canvas.className = "unity-mobile";
     }
 
+    var canvas = document.querySelector("#unity-canvas");
+    var loadingContainer = document.querySelector("#unity-loading-container");
+    var loadingBar = document.querySelector("#unity-loading-bar-inner");
+
+    var unityGame;
     var script = document.createElement("script");
     script.src = loaderUrl;
-    script.onload = function () {
-      createUnityInstance(canvas, config, function (progress) {
+    script.onload = function() {
+      createUnityInstance(canvas, config, function(progress) {
         loadingBar.style.width = 100 * progress + "%";
-      }).then(function (unityInstance) {
-        console.error(window.Telegram.WebApp.initDataUnsafe.user);
+      }).then(function(unityInstance) {
+        unityGame = unityInstance;
         window.unityInstance = unityInstance;
         window.unityInstance.SendMessage("TelegramController", "SetWebAppUser", JSON.stringify(window.Telegram.WebApp.initDataUnsafe.user));
         loadingContainer.classList.add("finished");
-
         // Call to check internet connection status after Unity instance creation
         checkInternetConnection();
-
-      }).catch(function (message) {
-        console.error(message);
+      }).catch(function(message) {
+        alert(message);
       });
     };
     document.body.appendChild(script);
@@ -230,9 +203,9 @@ var loadingBar = document.querySelector("#unity-loading-bar-inner");
       window.addEventListener('offline', updateInternetStatus);
     }
   </script>
-  
-  <!-- Add an html debug console and handle unity rich text styling for both html and browser console-->
-  <script src="./debug-console.js"></script>
+  <!-- Parse Unity rich text to render stylized browser console logs -->
+  <script src="./pretty-console.js"></script>
+
   <script>
     let tonConnectUI;
     const tonweb = new TonWeb();
@@ -338,5 +311,4 @@ var loadingBar = document.querySelector("#unity-loading-bar-inner");
 
   </script>
 </body>
-
 </html>
