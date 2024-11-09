@@ -2,12 +2,15 @@
 <html lang="en-us">
 
 <head>
+  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tonweb@0.0.56/dist/tonweb.min.js"></script>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Start loading assets right away, to have them (partly) loaded already when they are requested -->
-  <link rel="preload" href="Build//0e7dc348616cf2f4c3311e3a5fa995a2.data.unityweb" as="fetch" type="application/octet-stream" crossorigin>
-  <link rel="preload" href="Build/090f99e34e2f98d7bdd7a8e3b9e2924d.framework.js.unityweb" as="script">
-  <link rel="preload" href="Build/3fc8e048e8735b8041d9372d6a8a5926.wasm.unityweb" as="fetch" type="application/wasm" crossorigin>
+  <link rel="preload" href="Build//2496cf2ec8fb3bedc703c826e5161163.data" as="fetch" type="application/octet-stream" crossorigin>
+  <link rel="preload" href="Build/458529d0ba5c474b2fb8201aac296414.framework.js" as="script">
+  <link rel="preload" href="Build/3fc8e048e8735b8041d9372d6a8a5926.wasm" as="fetch" type="application/wasm" crossorigin>
   <title>Wow_Web_Telegram</title>
   <style>
     * {
@@ -44,7 +47,7 @@
     #unity-canvas {
       width: 100%;
       height: 100%;
-      background-color: #fff;
+      background-color: #222;
     }
 
     @media (min-aspect-ratio: 3/1) {
@@ -63,19 +66,18 @@
       }
     }
 
-    #unity-loading-container {
+#unity-loading-container {
       position: absolute;
       left: 0px;
       top: 0px;
       width: 100%;
       height: 100%;
-      background-color: #fff;
-      display: flex;
+      background: url('wow-bg.webp') no-repeat center center;
+      background-size: cover;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       gap: 40px;
-
       opacity: 1;
       visibility: visible;
       transition: 800ms linear;
@@ -86,28 +88,40 @@
       visibility: collapse;
     }
 
-    #unity-loading-container .logo {
-      width: 15%;
-      height: 15%;
-    }
-
-    #unity-loading-bar {
+    /* Outer bar with gradient and rounded corners */
+    #outer-bar {
       position: relative;
-      width: 40%;
-      height: 10px;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 10px;
+      width: 70%;
+      height: 14px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #43466e, #585e81);
+      border: 4px solid #6e78b3;
+      padding: 5px;
+      left: 50%;
+      top: 87%;
+      transform: translate(-50%, -50%);
+      /* Creates a space for the dark middle layer */
     }
 
-    #unity-loading-bar-inner {
-      position: absolute;
-      left: 0%;
-      top: 0%;
-      width: 0%;
+    /* Middle bar (dark gray background) with rounded corners */
+    #middle-bar {
+      width: 100%;
       height: 100%;
-      background-color: #ccc;
-      border-radius: 10px;
+      border-radius: 50px;
+      background-color: #282844;
+      /* Dark gray color */
+      padding: 0px;
+      /* Creates a space for the inner green bar */
+    }
+
+    /* Inner bar (green) with fill effect */
+    #unity-loading-bar-inner {
+      width: 1%;
+      /* Change this value to adjust the fill percentage */
+      height: 100%;
+      border-radius: 50px;
+      background: linear-gradient(180deg, #52eb6c, #3aa344);
+      /* Green gradient */
       transition: 400ms linear;
     }
   </style>
@@ -118,19 +132,34 @@
     <canvas id="unity-canvas"></canvas>
   </div>
   <div id="unity-loading-container">
-    <img src="logo.svg" class="logo" alt="Logo DefaultCompany">
-    <div id="unity-loading-bar">
-      <div id="unity-loading-bar-inner"></div>
+    <div id="outer-bar">
+      <div id="middle-bar">
+        <div id="unity-loading-bar-inner"></div>
+      </div>
     </div>
   </div>
-  <script src="Build/dab15f525bcf39ccc0fb9d3ce6b4b74a.loader.js"></script>
+  <script src="Build/e810311d44a26250df7ad539f491072c.loader.js"></script>
   <script>
+    
+
+
+    const app = window?.Telegram?.WebApp
+    if (app) {
+      app.enableClosingConfirmation()
+      app.ready()
+      app.expand()
+      if (app.disableVerticalSwipes) {
+        app.disableVerticalSwipes()
+      }
+    }
+
+
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/dab15f525bcf39ccc0fb9d3ce6b4b74a.loader.js";
+    var loaderUrl = buildUrl + "/e810311d44a26250df7ad539f491072c.loader.js";
     var config = {
-      dataUrl: buildUrl + "/0e7dc348616cf2f4c3311e3a5fa995a2.data.unityweb",
-      frameworkUrl: buildUrl + "/090f99e34e2f98d7bdd7a8e3b9e2924d.framework.js.unityweb",
-      codeUrl: buildUrl + "/3fc8e048e8735b8041d9372d6a8a5926.wasm.unityweb",
+      dataUrl: buildUrl + "/2496cf2ec8fb3bedc703c826e5161163.data",
+      frameworkUrl: buildUrl + "/458529d0ba5c474b2fb8201aac296414.framework.js",
+      codeUrl: buildUrl + "/3fc8e048e8735b8041d9372d6a8a5926.wasm",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
@@ -156,12 +185,142 @@
         loadingBar.style.width = 100 * progress + "%";
       }).then(function(unityInstance) {
         unityGame = unityInstance;
+        window.unityInstance = unityInstance;
+        window.unityInstance.SendMessage("TelegramController", "SetWebAppUser", JSON.stringify(window.Telegram.WebApp.initDataUnsafe.user));
         loadingContainer.classList.add("finished");
+
+        // Call to check internet connection status after Unity instance creation
+        checkInternetConnection();
+
       }).catch(function(message) {
         alert(message);
       });
     };
     document.body.appendChild(script);
+
+    // Function to check the internet connection and notify Unity
+    function checkInternetConnection() {
+      function updateInternetStatus() {
+        if (navigator.onLine) {
+          console.log("You are online.");
+          window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "online");
+        } else {
+          console.log("You are offline.");
+          window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "offline");
+        }
+      }
+
+      // Check the internet status on load
+      updateInternetStatus();
+
+      // Listen for online/offline changes
+      window.addEventListener('online', updateInternetStatus);
+      window.addEventListener('offline', updateInternetStatus);
+    }
+  </script>
+  <script>
+    let tonConnectUI;
+    const tonweb = new TonWeb();
+
+    // Initialize TonConnect
+    async function initTonConnect() {
+      tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+        manifestUrl: 'https://greensoilorganic.com/wow/wow-telegram-wallet.json', // Replace with your app's manifest URL
+      });
+    }
+
+    // Function to connect wallet
+    async function connectWallet() {
+      try {
+        await tonConnectUI.connectWallet(); // Connect wallet
+        const walletAddress = tonConnectUI.wallet.account.address; // Get wallet address
+        return walletAddress; // Return wallet address to Unity
+      } catch (error) {
+        console.error('Error connecting wallet:', error);
+        return null; // Return null in case of error
+      }
+    }
+
+    // Function to disconnect wallet
+    async function disconnectWallet() {
+      try {
+        await tonConnectUI.disconnect(); // Disconnect wallet
+        return true; // Return true if successfully disconnected
+      } catch (error) {
+        console.error('Error disconnecting wallet:', error);
+        return false; // Return false in case of error
+      }
+    }
+
+    // Function to send transaction
+    async function sendTransaction(recipientAddress, amountInTon) {
+      const amountInNanotons = amountInTon * 1e9; // Convert to nanotons
+
+      const transaction = {
+        validUntil: Math.floor(Date.now() / 1000) + 600,
+        messages: [
+          {
+            address: recipientAddress,
+            amount: amountInNanotons.toString(),
+          }
+        ],
+      };
+
+      try {
+        const result = await tonConnectUI.sendTransaction(transaction);
+        const msgHash = await getTransactionHash(result.boc); // Get transaction hash
+        return { success: true, hash: msgHash }; // Return hash on success
+      } catch (error) {
+        console.error('Error sending transaction:', error);
+        return { success: false, error: error.message }; // Return error message on failure
+      }
+    }
+
+    // Function to convert BOC to hash
+    async function getTransactionHash(bocString) {
+      try {
+        const tonweb = new TonWeb();
+        const bocCell = tonweb.boc.Cell.oneFromBoc(tonweb.utils.base64ToBytes(bocString));
+        const msgHash = await bocCell.hash(); // Await the hash calculation
+        return tonweb.utils.bytesToBase64(msgHash); // Convert the hash to base64 format
+      } catch (error) {
+        console.error("Error calculating hash:", error);
+        return null; // Return null on error
+      }
+    }
+
+    // Expose functions to Unity
+    window.connectWallet = connectWallet;
+    window.disconnectWallet = disconnectWallet;
+    window.sendTransaction = sendTransaction;
+
+    // Initialize TonConnect on page load
+    window.addEventListener('load', initTonConnect);
+  </script>
+  <script>
+    function checkOrientation() {
+      if (typeof unityInstance !== 'undefined' && unityInstance !== null) {
+        if (window.matchMedia("(orientation: portrait)").matches) {
+          document.body.classList.remove("landscape");
+          document.body.classList.add("portrait");
+          console.log("In portrait mode");
+          unityInstance.SendMessage('OriantationManager', 'PotraitMode');
+        } else {
+          document.body.classList.remove("portrait");
+          document.body.classList.add("landscape");
+          console.log("In landscape mode");
+          unityInstance.SendMessage('OriantationManager', 'LandscapeMode');
+        }
+      } else {
+        console.log("Unity instance is not defined yet. Orientation check skipped.");
+      }
+    }
+
+    checkOrientation();
+
+    window.addEventListener("resize", checkOrientation);
+    window.addEventListener("orientationchange", checkOrientation);
+
   </script>
   <!-- Parse Unity rich text to render stylized browser console logs -->
   <script src="./pretty-console.js"></script>
