@@ -8,27 +8,15 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Start loading assets right away, to have them (partly) loaded already when they are requested -->
-  <link rel="preload" href="Build//2496cf2ec8fb3bedc703c826e5161163.data" as="fetch" type="application/octet-stream" crossorigin>
+<!--   <link rel="preload" href="Build//2496cf2ec8fb3bedc703c826e5161163.data" as="fetch" type="application/octet-stream" crossorigin>
   <link rel="preload" href="Build/458529d0ba5c474b2fb8201aac296414.framework.js" as="script">
-  <link rel="preload" href="Build/3fc8e048e8735b8041d9372d6a8a5926.wasm" as="fetch" type="application/wasm" crossorigin>
+  <link rel="preload" href="Build/3fc8e048e8735b8041d9372d6a8a5926.wasm" as="fetch" type="application/wasm" crossorigin> -->
   <title>Wow_Web_Telegram</title>
   <style>
-    * {
-      padding: 0;
-      margin: 0;
-    }
-
-    html {
-      /* fix mobile viewport menu bar on iOS */
-      height: -webkit-fill-available;
-    }
-
+   
     body {
-      height: 100%;
-      /* fix mobile viewport menu bar on iOS */
-      height: -webkit-fill-available;
-      width: 100%;
-      text-align: center;
+    padding: 0;
+    margin: 0;
     }
 
     #unity-container {
@@ -49,22 +37,14 @@
       height: 100%;
       background-color: #222;
     }
-
-    @media (min-aspect-ratio: 3/1) {
-      #unity-canvas {
-        width: auto;
-        height: 100%;
-        aspect-ratio: 3/1;
-      }
+    
+/* Apply styles specifically for iOS devices */
+@supports (-webkit-overflow-scrolling: touch) {
+    #unity-canvas {
+        height: calc(97vh - env(safe-area-inset-bottom));
+        /* Set height to 97% of viewport height minus bottom safe area */
     }
-
-    @media (max-aspect-ratio: 1/2) {
-      #unity-canvas {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1/2;
-      }
-    }
+}
 
 #unity-loading-container {
       position: absolute;
@@ -138,7 +118,7 @@
       </div>
     </div>
   </div>
-  <script src="Build/e810311d44a26250df7ad539f491072c.loader.js"></script>
+<!--   <script src="Build/e810311d44a26250df7ad539f491072c.loader.js"></script> -->
   <script>
     
 
