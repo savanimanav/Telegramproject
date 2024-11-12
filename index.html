@@ -5,12 +5,15 @@
   <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tonweb@0.0.56/dist/tonweb.min.js"></script>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics-compat.js"></script>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Start loading assets right away, to have them (partly) loaded already when they are requested -->
-  <!-- <link rel="preload" href="Build//b34d25f01f128154476bc296dcde3828.data" as="fetch" type="application/octet-stream" crossorigin>
-  <link rel="preload" href="Build/e182fe2b465ee1762d0947a2c8365ea1.framework.js" as="script">
-  <link rel="preload" href="Build/f8dded378fef6d19b289b5d3e97e2a65.wasm" as="fetch" type="application/wasm" crossorigin> -->
+  <!-- <link rel="preload" href="Build//ef3e38a769efd1ae11dc38bb9f6655f2.data" as="fetch" type="application/octet-stream" crossorigin>
+  <link rel="preload" href="Build/b26b5187342ce6d68b1f08f85877fe86.framework.js" as="script">
+  <link rel="preload" href="Build/64eab6d55e51523693997a21124e3e7e.wasm" as="fetch" type="application/wasm" crossorigin> -->
   <title>Wow_Web_Telegram</title>
   <style>
    
@@ -123,7 +126,22 @@
       </div>
     </div>
   </div>
-  <!-- <script src="Build/dc3be70f64ff5bc57182b8723f02e82c.loader.js"></script> -->
+  <!-- <script src="Build/687885f62913fdab6272acf03b4c0b74.loader.js"></script> -->
+   <script>
+
+    const firebaseApp = firebase.initializeApp({
+      apiKey: "AIzaSyCjLr2KWwaL7zxWoBw_tg8t1Y4q8Yq5TbQ",
+      authDomain: "wow-tele-bot-prod.firebaseapp.com",
+      projectId: "wow-tele-bot-prod",
+      storageBucket: "wow-tele-bot-prod.firebasestorage.app",
+      messagingSenderId: "351916638202",
+      appId: "1:351916638202:web:d5f13a2ec3b208769aae43",
+      measurementId: "G-GXCMKKHRSG"
+    });
+
+    const analytics = firebaseApp.analytics();
+
+   </script>
   <script>
     
 
@@ -140,11 +158,11 @@
 
 
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/dc3be70f64ff5bc57182b8723f02e82c.loader.js";
+    var loaderUrl = buildUrl + "/687885f62913fdab6272acf03b4c0b74.loader.js";
     var config = {
-      dataUrl: buildUrl + "/b34d25f01f128154476bc296dcde3828.data",
-      frameworkUrl: buildUrl + "/e182fe2b465ee1762d0947a2c8365ea1.framework.js",
-      codeUrl: buildUrl + "/f8dded378fef6d19b289b5d3e97e2a65.wasm",
+      dataUrl: buildUrl + "/ef3e38a769efd1ae11dc38bb9f6655f2.data",
+      frameworkUrl: buildUrl + "/b26b5187342ce6d68b1f08f85877fe86.framework.js",
+      codeUrl: buildUrl + "/64eab6d55e51523693997a21124e3e7e.wasm",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
