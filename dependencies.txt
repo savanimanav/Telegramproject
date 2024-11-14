@@ -52,4 +52,4 @@ com.unity.modules.vr@1.0.0
 com.unity.modules.wind@1.0.0
 com.unity.modules.xr@1.0.0
 unity-dependencies-hunter@1.0.0
-Wow_Web_Telegram@1.5
+Wow_Web_Telegram@1.6
