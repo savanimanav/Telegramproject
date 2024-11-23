@@ -11,9 +11,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Start loading assets right away, to have them (partly) loaded already when they are requested -->
-  <!-- <link rel="preload" href="Build//1d30102a28257b60b3dd5edd24b6a79c.data" as="fetch" type="application/octet-stream" crossorigin>
-  <link rel="preload" href="Build/8f76566b14f2c86c61d5567f5f880b1d.framework.js" as="script">
-  <link rel="preload" href="Build/6c953afe925bfe00d7f14cb93f24ef6f.wasm" as="fetch" type="application/wasm" crossorigin> -->
+  <!-- <link rel="preload" href="Build//0f76c58d629ad384fa446f22facfd76a.data" as="fetch" type="application/octet-stream" crossorigin>
+  <link rel="preload" href="Build/21aa4cdf2376bdaab6808d8fcbd25e71.framework.js" as="script">
+  <link rel="preload" href="Build/a3121631b1188daadb48f2f1cc8f7ef3.wasm" as="fetch" type="application/wasm" crossorigin> -->
   <title>Wow_Web_Telegram</title>
   <style>
    
@@ -85,36 +85,58 @@
       width: 70%;
       height: 14px;
       border-radius: 50px;
-      background: linear-gradient(135deg, #43466e, #585e81);
-      border: 4px solid #6e78b3;
+      /* background: linear-gradient(135deg, #43466e, #585e81); */
+      /* border: 4px solid #6e78b3; */
       padding: 5px;
       left: 50%;
       top: 87%;
       transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       /* Creates a space for the dark middle layer */
     }
 
     /* Middle bar (dark gray background) with rounded corners */
-    #middle-bar {
+    /* #middle-bar {
       width: 100%;
       height: 100%;
       border-radius: 50px;
       background-color: #282844;
-      /* Dark gray color */
       padding: 0px;
-      /* Creates a space for the inner green bar */
-    }
+    } */
 
     /* Inner bar (green) with fill effect */
-    #unity-loading-bar-inner {
+    /* #unity-loading-bar-inner {
       width: 1%;
-      /* Change this value to adjust the fill percentage */
       height: 100%;
       border-radius: 50px;
       background: linear-gradient(180deg, #52eb6c, #3aa344);
-      /* Green gradient */
       transition: 400ms linear;
-    }
+    } */
+
+    /* HTML: <div class="loader"></div> */
+  .loader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #ffffffe0;
+    --_m: 
+      conic-gradient(#0000 10%,#000),
+      linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+            mask: var(--_m);
+    -webkit-mask-composite: source-out;
+            mask-composite: subtract;
+    animation: l3 1.5s infinite linear;
+  }
+  @keyframes l3 {to{transform: rotate(1turn)}}
   </style>
 </head>
 
@@ -124,14 +146,21 @@
   </div>
   <div id="unity-loading-container">
     <div id="outer-bar">
-      <div id="middle-bar">
-        <div id="unity-loading-bar-inner"></div>
+      <!-- <div id="middle-bar">
+        <div id="unity-loading-bar-inner"></div> -->
+        <div class="loader"></div>
       </div>
     </div>
   </div>
-  <!-- <script src="Build/401d35c312d75d1469b03294292c218e.loader.js"></script> -->
+  <!-- <script src="Build/3f2a3c00442226885e440409994e9489.loader.js"></script> -->
    <script>
 
+    // Override the global alert function
+    window.alert = function (message) {
+        console.error("Alert suppressed: ", message);
+        // Optional: Log to console or handle the message differently
+    };
+    
     const firebaseApp = firebase.initializeApp({
       apiKey: "AIzaSyCjLr2KWwaL7zxWoBw_tg8t1Y4q8Yq5TbQ",
       authDomain: "wow-tele-bot-prod.firebaseapp.com",
@@ -161,11 +190,11 @@
 
 
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/401d35c312d75d1469b03294292c218e.loader.js";
+    var loaderUrl = buildUrl + "/3f2a3c00442226885e440409994e9489.loader.js";
     var config = {
-      dataUrl: buildUrl + "/1d30102a28257b60b3dd5edd24b6a79c.data",
-      frameworkUrl: buildUrl + "/8f76566b14f2c86c61d5567f5f880b1d.framework.js",
-      codeUrl: buildUrl + "/6c953afe925bfe00d7f14cb93f24ef6f.wasm",
+      dataUrl: buildUrl + "/0f76c58d629ad384fa446f22facfd76a.data",
+      frameworkUrl: buildUrl + "/21aa4cdf2376bdaab6808d8fcbd25e71.framework.js",
+      codeUrl: buildUrl + "/a3121631b1188daadb48f2f1cc8f7ef3.wasm",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
@@ -176,7 +205,6 @@
     var container = document.querySelector("#unity-container");
     var canvas = document.querySelector("#unity-canvas");
     var loadingContainer = document.querySelector("#unity-loading-container");
-    var loadingBar = document.querySelector("#unity-loading-bar-inner");
 
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if(isMobile) {
@@ -202,7 +230,7 @@
     script.src = loaderUrl;
     script.onload = function() {
       createUnityInstance(canvas, config, function(progress) {
-        loadingBar.style.width = 100 * progress + "%";
+        // loadingBar.style.width = 100 * progress + "%";
       }).then(function(unityInstance) {
         unityGame = unityInstance;
         window.unityInstance = unityInstance;
