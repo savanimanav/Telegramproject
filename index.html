@@ -11,9 +11,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Start loading assets right away, to have them (partly) loaded already when they are requested -->
-  <!-- <link rel="preload" href="Build//1d30102a28257b60b3dd5edd24b6a79c.data" as="fetch" type="application/octet-stream" crossorigin>
-  <link rel="preload" href="Build/8f76566b14f2c86c61d5567f5f880b1d.framework.js" as="script">
-  <link rel="preload" href="Build/6c953afe925bfe00d7f14cb93f24ef6f.wasm" as="fetch" type="application/wasm" crossorigin> -->
+  <!-- <link rel="preload" href="Build//31fc8c93f713f94fc33847aa4f50a11c.data" as="fetch" type="application/octet-stream" crossorigin>
+  <link rel="preload" href="Build/eeb5565f8a415e44a8bd00f8f618e98f.framework.js" as="script">
+  <link rel="preload" href="Build/21bedb3a8f95937cbbf3d5a1db83a573.wasm" as="fetch" type="application/wasm" crossorigin> -->
   <title>Wow_Web_Telegram</title>
   <style>
    
@@ -129,7 +129,7 @@
       </div>
     </div>
   </div>
-  <!-- <script src="Build/401d35c312d75d1469b03294292c218e.loader.js"></script> -->
+  <!-- <script src="Build/7cb9e4bf2e5da8928f8c8405a85bbfea.loader.js"></script> -->
    <script>
 
     const firebaseApp = firebase.initializeApp({
@@ -161,15 +161,15 @@
 
 
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/401d35c312d75d1469b03294292c218e.loader.js";
+    var loaderUrl = buildUrl + "/7cb9e4bf2e5da8928f8c8405a85bbfea.loader.js";
     var config = {
-      dataUrl: buildUrl + "/1d30102a28257b60b3dd5edd24b6a79c.data",
-      frameworkUrl: buildUrl + "/8f76566b14f2c86c61d5567f5f880b1d.framework.js",
-      codeUrl: buildUrl + "/6c953afe925bfe00d7f14cb93f24ef6f.wasm",
+      dataUrl: buildUrl + "/31fc8c93f713f94fc33847aa4f50a11c.data",
+      frameworkUrl: buildUrl + "/eeb5565f8a415e44a8bd00f8f618e98f.framework.js",
+      codeUrl: buildUrl + "/21bedb3a8f95937cbbf3d5a1db83a573.wasm",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
       productName: "Wow_Web_Telegram",
-      productVersion: "1.7",
+      productVersion: "1.6",
     };
 
 
@@ -245,7 +245,7 @@
     // Initialize TonConnect
     async function initTonConnect() {
       tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://thewarriorofwealth.com/wow-telegram-wallet.json', // Replace with your app's manifest URL
+        manifestUrl: 'https://greensoilorganic.com/wow/wow-telegram-wallet.json', // Replace with your app's manifest URL
       });
     }
 
@@ -342,5 +342,7 @@
     window.addEventListener("orientationchange", checkOrientation);
 
   </script>
+  <!-- Parse Unity rich text to render stylized browser console logs -->
+  <script src="./pretty-console.js"></script>
 </body>
 </html>
