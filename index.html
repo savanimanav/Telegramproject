@@ -1,375 +1,56 @@
+
 <!DOCTYPE html>
-<html lang="en-us">
-
+<html>
 <head>
-  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tonweb@0.0.56/dist/tonweb.min.js"></script>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-
-  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics-compat.js"></script>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Start loading assets right away, to have them (partly) loaded already when they are requested -->
-  <!-- <link rel="preload" href="Build//199decb0b9cb03460555858d32f99df2.data.unityweb" as="fetch" type="application/octet-stream" crossorigin>
-  <link rel="preload" href="Build/7f3d75eb57291a6163cd303b15d238c2.framework.js.unityweb" as="script">
-  <link rel="preload" href="Build/3d529d8cc749f7d28706c6d267797c2d.wasm.unityweb" as="fetch" type="application/wasm" crossorigin> -->
-  <title>Wow_Web_Telegram</title>
-  <style>
-   
-   html, body {
-      padding: 0;
-      margin: 0;
-      overflow: hidden; /* Disable scroll */
-      height: 100%;
-      width: 100%;
-  }
-
-  #unity-container {
-      position: absolute;
-  }
-
-  #unity-container.unity-desktop {
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%)
-  }
-
-  #unity-container.unity-mobile {
-      /* position: fixed; */
-      width: 100%;
-      height: 100%
-  }
-
-  /* #unity-canvas { background: #0000f3 } */
-  .unity-mobile #unity-canvas {
-      width: 100%;
-      height: 100%;
-      /* Default height */
-  }
-    
-/* Apply styles specifically for iOS devices */
-@supports (-webkit-overflow-scrolling: touch) {
-    .unity-mobile #unity-canvas {
-        height: calc(97vh - env(safe-area-inset-bottom));
-        /* Set height to 97% of viewport height minus bottom safe area */
-    }
-}
-
-#unity-loading-container {
-      position: absolute;
-      left: 0px;
-      top: 0px;
-      width: 100%;
-      height: 100%;
-      overflow: hidden; /* Prevent any scroll within loading container */
-      background: url('wow-bg.webp') no-repeat center center;
-      background-size: cover;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 40px;
-      opacity: 1;
-      visibility: visible;
-      transition: 800ms linear;
-    }
-
-    #unity-loading-container.finished {
-      opacity: 0;
-      visibility: collapse;
-    }
-
-    /* Outer bar with gradient and rounded corners */
-    #outer-bar {
-      position: relative;
-      width: 70%;
-      height: 14px;
-      border-radius: 50px;
-      /* background: linear-gradient(135deg, #43466e, #585e81); */
-      /* border: 4px solid #6e78b3; */
-      padding: 5px;
-      left: 50%;
-      top: 87%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      /* Creates a space for the dark middle layer */
-    }
-
-    /* Middle bar (dark gray background) with rounded corners */
-    /* #middle-bar {
-      width: 100%;
-      height: 100%;
-      border-radius: 50px;
-      background-color: #282844;
-      padding: 0px;
-    } */
-
-    /* Inner bar (green) with fill effect */
-    /* #unity-loading-bar-inner {
-      width: 1%;
-      height: 100%;
-      border-radius: 50px;
-      background: linear-gradient(180deg, #52eb6c, #3aa344);
-      transition: 400ms linear;
-    } */
-
-    /* HTML: <div class="loader"></div> */
-  .loader {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    padding: 8px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: #ffffffe0;
-    --_m: 
-      conic-gradient(#0000 10%,#000),
-      linear-gradient(#000 0 0) content-box;
-    -webkit-mask: var(--_m);
-            mask: var(--_m);
-    -webkit-mask-composite: source-out;
-            mask-composite: subtract;
-    animation: l3 1.5s infinite linear;
-  }
-  @keyframes l3 {to{transform: rotate(1turn)}}
-  </style>
+    <title>OS Detection</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
 </head>
-
 <body>
-  <div id="unity-container" class="unity-desktop">
-    <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
-  </div>
-  <div id="unity-loading-container">
-    <div id="outer-bar">
-      <!-- <div id="middle-bar">
-        <div id="unity-loading-bar-inner"></div> -->
-        <div class="loader"></div>
-      </div>
-    </div>
-  </div>
-  <!-- <script src="Build/8f69084cf2285954c1aa62ffec462eca.loader.js"></script> -->
-   <script>
+    <h1>Operating System Detection</h1>
+    <p id="osLabel">Click the button to detect your OS</p>
+    <button onclick="detectOS()">Detect OS</button>
+      
+<a href="https://tecadmin.net/javascript-detect-os/" target="_blank" rel="noopener" style="margin-top: 28px; font-size: 12px;">View Source Code</a>
+    <script>
+        function detectOS() {
+            let userAgent = window.navigator.userAgent,
+                platform = window.navigator.platform,
+                macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+                windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+                iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+                os = null;
 
-    // Override the global alert function
-    window.alert = function (message) {
-        console.error("Alert suppressed: ", message);
-        // Optional: Log to console or handle the message differently
-    };
-    
-    const firebaseApp = firebase.initializeApp({
-      apiKey: "AIzaSyCjLr2KWwaL7zxWoBw_tg8t1Y4q8Yq5TbQ",
-      authDomain: "wow-tele-bot-prod.firebaseapp.com",
-      projectId: "wow-tele-bot-prod",
-      storageBucket: "wow-tele-bot-prod.firebasestorage.app",
-      messagingSenderId: "351916638202",
-      appId: "1:351916638202:web:d5f13a2ec3b208769aae43",
-      measurementId: "G-GXCMKKHRSG"
-    });
+            if (macosPlatforms.indexOf(platform) !== -1) {
+                os = 'Mac OS';
+            } else if (iosPlatforms.indexOf(platform) !== -1) {
+                os = 'iOS';
+            } else if (windowsPlatforms.indexOf(platform) !== -1) {
+                os = 'Windows';
+            } else if (/Android/.test(userAgent)) {
+                os = 'Android';
+            } else if (!os && /Linux/.test(platform)) {
+                os = 'Linux';
+            }
 
-    const analytics = firebaseApp.analytics();
-
-   </script>
-  <script>
-    
-
-
-    const app = window?.Telegram?.WebApp
-    if (app) {
-      app.enableClosingConfirmation()
-      app.ready()
-      app.expand()
-      // if (app.disableVerticalSwipes) {
-      //   app.disableVerticalSwipes()
-      // }
-    }
-
-
-    var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/8f69084cf2285954c1aa62ffec462eca.loader.js";
-    var config = {
-      dataUrl: buildUrl + "/199decb0b9cb03460555858d32f99df2.data.unityweb",
-      frameworkUrl: buildUrl + "/7f3d75eb57291a6163cd303b15d238c2.framework.js.unityweb",
-      codeUrl: buildUrl + "/3d529d8cc749f7d28706c6d267797c2d.wasm.unityweb",
-      streamingAssetsUrl: "StreamingAssets",
-      companyName: "DefaultCompany",
-      productName: "Wow_Web_Telegram",
-      productVersion: "2.0",
-    };
-
-
-    var container = document.querySelector("#unity-container");
-    var canvas = document.querySelector("#unity-canvas");
-    var loadingContainer = document.querySelector("#unity-loading-container");
-
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if(isMobile) {
-      var meta = document.createElement('meta');
-      meta.name = 'viewport';
-      meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-      document.getElementsByTagName('head')[0].appendChild(meta);
-      container.className = "unity-mobile";
-      canvas.className = "unity-mobile";
-
-      config.devicePixelRatio = window.devicePixelRatio;
-    }
-    else {
-      // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-
-      canvas.style.width = "384px";
-      canvas.style.height = "590px";
-    }
-
-
-    var unityGame;
-    var script = document.createElement("script");
-    script.src = loaderUrl;
-    script.onload = function() {
-      createUnityInstance(canvas, config, function(progress) {
-        // loadingBar.style.width = 100 * progress + "%";
-      }).then(function(unityInstance) {
-        unityGame = unityInstance;
-        window.unityInstance = unityInstance;
-        window.unityInstance.SendMessage("TelegramController", "SetWebAppUser", JSON.stringify(window.Telegram.WebApp.initDataUnsafe.user));
-        loadingContainer.classList.add("finished");
-
-        // Call to check internet connection status after Unity instance creation
-        checkInternetConnection();
-
-      }).catch(function(message) {
-        console.error(message);
-      });
-    };
-    document.body.appendChild(script);
-
-    // Function to check the internet connection and notify Unity
-    function checkInternetConnection() {
-      function updateInternetStatus() {
-        if (navigator.onLine) {
-          console.log("You are online.");
-          window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "online");
-        } else {
-          console.log("You are offline.");
-          window.unityInstance.SendMessage("InternetChecker", "UpdateConnectionStatus", "offline");
+            document.getElementById('osLabel').innerText = "You are using " + (os ? os : "an unknown OS");
         }
-      }
-
-      // Check the internet status on load
-      updateInternetStatus();
-
-      // Listen for online/offline changes
-      window.addEventListener('online', updateInternetStatus);
-      window.addEventListener('offline', updateInternetStatus);
-    }
-  </script>
-  <script>
-    let tonConnectUI;
-    const tonweb = new TonWeb();
-
-    // Initialize TonConnect
-    async function initTonConnect() {
-      tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://thewarriorofwealth.com/wow-telegram-wallet.json', // Replace with your app's manifest URL
-      });
-    }
-
-    // Function to connect wallet
-    async function connectWallet() {
-      try {
-        await tonConnectUI.connectWallet(); // Connect wallet
-        const walletAddress = tonConnectUI.wallet.account.address; // Get wallet address
-        return walletAddress; // Return wallet address to Unity
-      } catch (error) {
-        console.error('Error connecting wallet:', error);
-        return null; // Return null in case of error
-      }
-    }
-
-    // Function to disconnect wallet
-    async function disconnectWallet() {
-      try {
-        await tonConnectUI.disconnect(); // Disconnect wallet
-        return true; // Return true if successfully disconnected
-      } catch (error) {
-        console.error('Error disconnecting wallet:', error);
-        return false; // Return false in case of error
-      }
-    }
-
-    // Function to send transaction
-    async function sendTransaction(recipientAddress, amountInTon) {
-      const amountInNanotons = amountInTon * 1e9; // Convert to nanotons
-
-      const transaction = {
-        validUntil: Math.floor(Date.now() / 1000) + 600,
-        messages: [
-          {
-            address: recipientAddress,
-            amount: amountInNanotons.toString(),
-          }
-        ],
-      };
-
-      try {
-        const result = await tonConnectUI.sendTransaction(transaction);
-        const msgHash = await getTransactionHash(result.boc); // Get transaction hash
-        return { success: true, hash: msgHash }; // Return hash on success
-      } catch (error) {
-        console.error('Error sending transaction:', error);
-        return { success: false, error: error.message }; // Return error message on failure
-      }
-    }
-
-    // Function to convert BOC to hash
-    async function getTransactionHash(bocString) {
-      try {
-        const tonweb = new TonWeb();
-        const bocCell = tonweb.boc.Cell.oneFromBoc(tonweb.utils.base64ToBytes(bocString));
-        const msgHash = await bocCell.hash(); // Await the hash calculation
-        return tonweb.utils.bytesToBase64(msgHash); // Convert the hash to base64 format
-      } catch (error) {
-        console.error("Error calculating hash:", error);
-        return null; // Return null on error
-      }
-    }
-
-    // Expose functions to Unity
-    window.connectWallet = connectWallet;
-    window.disconnectWallet = disconnectWallet;
-    window.sendTransaction = sendTransaction;
-
-    // Initialize TonConnect on page load
-    window.addEventListener('load', initTonConnect);
-  </script>
-  <script>
-    function checkOrientation() {
-      if (typeof unityInstance !== 'undefined' && unityInstance !== null) {
-        if (window.matchMedia("(orientation: portrait)").matches) {
-          document.body.classList.remove("landscape");
-          document.body.classList.add("portrait");
-          console.log("In portrait mode");
-          unityInstance.SendMessage('OriantationManager', 'PotraitMode');
-        } else {
-          document.body.classList.remove("portrait");
-          document.body.classList.add("landscape");
-          console.log("In landscape mode");
-          unityInstance.SendMessage('OriantationManager', 'LandscapeMode');
-        }
-      } else {
-        console.log("Unity instance is not defined yet. Orientation check skipped.");
-      }
-    }
-
-    checkOrientation();
-
-    window.addEventListener("resize", checkOrientation);
-    window.addEventListener("orientationchange", checkOrientation);
-
-  </script>
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8ef30d3bc884e22d","version":"2024.10.5","r":1,"token":"e6d5ac786b844160836d4709e7f14681","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
 </body>
 </html>
